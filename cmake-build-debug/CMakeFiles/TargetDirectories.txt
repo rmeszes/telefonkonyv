@@ -1,0 +1,3 @@
+C:/Users/rmesz/CLionProjects/telefonkonyv/cmake-build-debug/CMakeFiles/telefonkonyv.dir
+C:/Users/rmesz/CLionProjects/telefonkonyv/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/rmesz/CLionProjects/telefonkonyv/cmake-build-debug/CMakeFiles/rebuild_cache.dir
