@@ -3,3 +3,4 @@
 //
 
 #include "megjelenites.h"
+#include "debugmalloc.h"
