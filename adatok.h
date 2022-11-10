@@ -6,6 +6,7 @@
 #define MAIN_C_ADATOK_H
 
 typedef struct Nevjegy {
+    int id;
     char nev[301];
     char email[321];
     char telefonszam[21];

@@ -19,8 +19,10 @@ int main() {
     if (adatok == NULL) {
         printf("Nyomj meg egy gombot a programból való kilépéshez!\n");
         getchar();
-        return 2; //hibakód ha nem sikerül fájlt beolvasni.
+        return 0;
     }
+
+    printf("Debug: Teszt lista elemei:\nNév: %s\nEmail: %s\nTelefonszám: %s\n", adatok->elso->kov->nev, adatok->elso->kov->email, adatok->elso->kov->telefonszam);
 
     lista_felszabaditasa(adatok);
 

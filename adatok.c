@@ -10,8 +10,24 @@
     return elem;
 }*/
 
-Nevjegy* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonszam) {
+Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonszam) {
+    Nevjegy *uj;
+    uj = malloc(sizeof(Nevjegy));
+    strcpy(uj->nev, nev);
+    strcpy(uj->email, email);
+    strcpy(uj->telefonszam, telefonszam);
 
+    //Nevjegy* mozgo = lista->elso;
+
+    /*while (mozgo->kov != lista->utolso) {
+        mozgo = mozgo->kov;
+    }*/
+
+    uj->elozo = lista->utolso->elozo;
+    uj->kov = lista->utolso;
+    lista->utolso->elozo->kov = uj;
+    lista->utolso->elozo = uj;
+    return lista;
 }
 
 /* Visszatér a beolvasott láncolt lista pointerével, amit a hívónak fel kell szabadítani! */
@@ -29,11 +45,13 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
         perror("Nem sikerült a fájl megnyitása! Ok");
         return NULL;
     }
-    printf("A %s fájl megnyitása sikerült.\n", strdup(fajlnev));
+    printf("Debug: A %s fájl megnyitása sikerült.\n", strdup(fajlnev));
     //példa-beolvasás debug szempontból
     char buffer[101];
     fgets(buffer,100,fp);
-    printf("Elsõ 100 karaker: %s", buffer);
+    printf("Debug: Elsõ 100 karaker: %s\n", buffer);
+
+    nevjegyek = uj_nevjegy(nevjegyek, "név", "email", "telefonszám");
 
     fclose(fp);
     return nevjegyek;
