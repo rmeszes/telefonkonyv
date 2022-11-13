@@ -10,7 +10,7 @@
     return elem;
 }*/
 
-Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonszam) {
+Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* email) {
     Nevjegy *uj;
     uj = malloc(sizeof(Nevjegy));
     strcpy(uj->nev, nev);
@@ -30,13 +30,13 @@ Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonsza
     return lista;
 }
 
-Nevjegy* uj_elem_fajlbol(char* sor) {
+Nevjegy* uj_elem_fajlbol(const char* sor) {
     Nevjegy* uj = malloc(sizeof(Nevjegy));
     int mezo = 0;
     int sor_szamlalo = 0;
     int mezo_szamlalo = 0;
     while (mezo != 3){
-        if(sor[sor_szamlalo] != ';') {
+        if(sor[sor_szamlalo] == ';') {
             mezo++;
             sor_szamlalo++;
             mezo_szamlalo = 0;
@@ -44,13 +44,16 @@ Nevjegy* uj_elem_fajlbol(char* sor) {
         else {
             switch(mezo) {
                 case 0:
-                    uj->nev[mezo_szamlalo] = sor[sor_szamlalo];
+                    uj->nev[mezo_szamlalo++] = sor[sor_szamlalo++];
+                    uj->nev[mezo_szamlalo] = '\0';
                     break;
                 case 1:
-                    uj->telefonszam[mezo_szamlalo] = sor[sor_szamlalo];
+                    uj->telefonszam[mezo_szamlalo++] = sor[sor_szamlalo++];
+                    uj->telefonszam[mezo_szamlalo] = '\0';
                     break;
                 case 2:
-                    uj->email[mezo_szamlalo] = sor[sor_szamlalo];
+                    uj->email[mezo_szamlalo++] = sor[sor_szamlalo++];
+                    uj->email[mezo_szamlalo] = '\0';
                     break;
                 default:
                     return NULL;
@@ -68,6 +71,7 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     nevjegyek->elso->kov = nevjegyek->utolso;
     nevjegyek->utolso->elozo = nevjegyek->elso;
     nevjegyek->utolso->kov = NULL;
+    nevjegyek->elso->elozo = NULL;
 
     FILE* fp;
     fp = fopen(strdup(fajlnev), "r");
@@ -82,10 +86,10 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     while (fgets(buffer,641,fp) != NULL) {
         Nevjegy *temp;
         temp = uj_elem_fajlbol(buffer);
-        uj_nevjegy(nevjegyek, temp->nev, temp->email, temp->telefonszam);
+        uj_nevjegy(nevjegyek, temp->nev, temp->telefonszam, temp->email);
     }
 
-    nevjegyek = uj_nevjegy(nevjegyek, "név", "email", "telefonszám");
+    //nevjegyek = uj_nevjegy(nevjegyek, "név", "telefonszám", "email"); Teszt elem
 
     fclose(fp);
     return nevjegyek;

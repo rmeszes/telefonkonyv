@@ -24,13 +24,13 @@ int main() {
 
     Nevjegy* mozgo = adatok->elso->kov;
     printf("Debug: A lista elemei:\n");
-    while (mozgo != NULL) {
-        printf("Név: %s\nEmail: %s\nTelefonszám: %s\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
+    while (mozgo->kov != NULL) {
+        printf("//\tNév: %s\n//\tTelefonszám: %s\n//\tEmail: %s\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
+        printf("\n");
         mozgo = mozgo->kov;
     }
-    printf("\n");
 
-    printf("Debug: Teszt elem:\nNév: %s\nEmail: %s\nTelefonszám: %s\n", adatok->utolso->elozo->nev, adatok->utolso->elozo->email, adatok->utolso->elozo->telefonszam);
+    //printf("Debug: Teszt elem:\nNév: %s\nEmail: %s\nTelefonszám: %s\n", adatok->utolso->elozo->nev, adatok->utolso->elozo->email, adatok->utolso->elozo->telefonszam);
 
     lista_felszabaditasa(adatok);
 
