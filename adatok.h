@@ -23,4 +23,6 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev);
 
 void lista_felszabaditasa(Nevjegyek* lista);
 
+Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonszam);
+
 #endif //MAIN_C_ADATOK_H

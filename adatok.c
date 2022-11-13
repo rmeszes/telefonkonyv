@@ -30,6 +30,36 @@ Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonsza
     return lista;
 }
 
+Nevjegy* uj_elem_fajlbol(char* sor) {
+    Nevjegy* uj = malloc(sizeof(Nevjegy));
+    int mezo = 0;
+    int sor_szamlalo = 0;
+    int mezo_szamlalo = 0;
+    while (mezo != 3){
+        if(sor[sor_szamlalo] != ';') {
+            mezo++;
+            sor_szamlalo++;
+            mezo_szamlalo = 0;
+        }
+        else {
+            switch(mezo) {
+                case 0:
+                    uj->nev[mezo_szamlalo] = sor[sor_szamlalo];
+                    break;
+                case 1:
+                    uj->telefonszam[mezo_szamlalo] = sor[sor_szamlalo];
+                    break;
+                case 2:
+                    uj->email[mezo_szamlalo] = sor[sor_szamlalo];
+                    break;
+                default:
+                    return NULL;
+            }
+        }
+    }
+    return uj;
+}
+
 /* Visszatér a beolvasott láncolt lista pointerével, amit a hívónak fel kell szabadítani! */
 Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     Nevjegyek *nevjegyek = (Nevjegyek*) malloc(sizeof(Nevjegyek));
@@ -47,9 +77,13 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     }
     printf("Debug: A %s fájl megnyitása sikerült.\n", strdup(fajlnev));
     //példa-beolvasás debug szempontból
-    char buffer[101];
-    fgets(buffer,100,fp);
-    printf("Debug: Elsõ 100 karaker: %s\n", buffer);
+    char buffer[641]; // 643 karakter lehet egy sorban a mezõk karakterlimitjei miatt TODO: hibakezelés
+    //printf("Debug: Elsõ 100 karaker: %s\n", buffer);
+    while (fgets(buffer,641,fp) != NULL) {
+        Nevjegy *temp;
+        temp = uj_elem_fajlbol(buffer);
+        uj_nevjegy(nevjegyek, temp->nev, temp->email, temp->telefonszam);
+    }
 
     nevjegyek = uj_nevjegy(nevjegyek, "név", "email", "telefonszám");
 

@@ -22,7 +22,15 @@ int main() {
         return 0;
     }
 
-    printf("Debug: Teszt lista elemei:\nNév: %s\nEmail: %s\nTelefonszám: %s\n", adatok->elso->kov->nev, adatok->elso->kov->email, adatok->elso->kov->telefonszam);
+    Nevjegy* mozgo = adatok->elso->kov;
+    printf("Debug: A lista elemei:\n");
+    while (mozgo != NULL) {
+        printf("Név: %s\nEmail: %s\nTelefonszám: %s\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
+        mozgo = mozgo->kov;
+    }
+    printf("\n");
+
+    printf("Debug: Teszt elem:\nNév: %s\nEmail: %s\nTelefonszám: %s\n", adatok->utolso->elozo->nev, adatok->utolso->elozo->email, adatok->utolso->elozo->telefonszam);
 
     lista_felszabaditasa(adatok);
 
