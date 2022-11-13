@@ -5,11 +5,6 @@
 #include "adatok.h"
 #include "debugmalloc.h"
 
-/*static char* elem_beolvasasa(FILE* fp) {
-    char* elem =
-    return elem;
-}*/
-
 Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* email) {
     Nevjegy *uj;
     uj = malloc(sizeof(Nevjegy));
@@ -76,6 +71,7 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     FILE* fp;
     fp = fopen(strdup(fajlnev), "r");
     if(fp == NULL) {
+        lista_felszabaditasa(nevjegyek);
         perror("Nem sikerült a fájl megnyitása! Ok");
         return NULL;
     }
@@ -87,6 +83,7 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
         Nevjegy *temp;
         temp = uj_elem_fajlbol(buffer);
         uj_nevjegy(nevjegyek, temp->nev, temp->telefonszam, temp->email);
+        free(temp);
     }
 
     //nevjegyek = uj_nevjegy(nevjegyek, "név", "telefonszám", "email"); Teszt elem
