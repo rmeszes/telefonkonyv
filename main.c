@@ -25,6 +25,7 @@ int main() {
     Nevjegy* mozgo = adatok->elso->kov;
     printf("Debug: A lista elemei:\n");
     while (mozgo->kov != NULL) {
+        printf("ID: %d\n", mozgo->id);
         printf("//\tNév: %s\n//\tTelefonszám: %s\n//\tEmail: %s\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
         printf("\n");
         mozgo = mozgo->kov;

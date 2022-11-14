@@ -5,13 +5,16 @@
 #include "adatok.h"
 #include "debugmalloc.h"
 
+/*
+ * Beszúr egy új névjegyet a listába, abc sorrend szerinti helyére (név mezõ alapján).
+ */
 Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* email) { //TODO: Rendezett beillesztés
     Nevjegy *uj;
     uj = malloc(sizeof(Nevjegy));
     strcpy(uj->nev, nev);
     strcpy(uj->email, email);
     strcpy(uj->telefonszam, telefonszam);
-
+    uj->id = ++lista->id;
 
     uj->elozo = lista->utolso->elozo;
     uj->kov = lista->utolso;
@@ -19,6 +22,10 @@ Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* emai
     lista->utolso->elozo = uj;
     return lista;
 }
+
+/*
+ * Létrehoz egy Nevjegy elemet egy fájlból beolvasott sorból (sztringbõl).
+ */
 
 Nevjegy* uj_elem_fajlbol(const char* sor) {
     Nevjegy* uj = malloc(sizeof(Nevjegy));
@@ -53,7 +60,9 @@ Nevjegy* uj_elem_fajlbol(const char* sor) {
     return uj;
 }
 
-/* Visszatér a beolvasott láncolt lista pointerével, amit a hívónak fel kell szabadítani! */
+/*
+ * Visszatér a beolvasott láncolt lista pointerével, amit a hívónak fel kell szabadítani!
+ */
 Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     Nevjegyek *nevjegyek = (Nevjegyek*) malloc(sizeof(Nevjegyek));
     nevjegyek->elso = (Nevjegy*) malloc(sizeof(Nevjegy));
@@ -62,6 +71,7 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     nevjegyek->utolso->elozo = nevjegyek->elso;
     nevjegyek->utolso->kov = NULL;
     nevjegyek->elso->elozo = NULL;
+    nevjegyek->id = 0;
 
     FILE* fp;
     fp = fopen(strdup(fajlnev), "r");
@@ -87,6 +97,10 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     return nevjegyek;
 }
 
+
+/*
+ * lista felszabadítás.
+ */
 void lista_felszabaditasa(Nevjegyek* lista) {
     Nevjegy *iter = lista->elso;
     while(iter != NULL) {

@@ -17,6 +17,7 @@ typedef struct Nevjegy {
 typedef struct Nevjegyek {
     Nevjegy *elso;
     Nevjegy *utolso;
+    int id;
 }Nevjegyek;
 
 Nevjegyek* fajlbol_beolvas(char* fajlnev);
