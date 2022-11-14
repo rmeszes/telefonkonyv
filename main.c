@@ -9,7 +9,7 @@
 #include "adatok.h"
 
 #define TESZT
-int main(int argc, char **argv) { //TODO: bemenet megoldása
+int main(int argc, char **argv) {
 #ifdef _WIN32
     SetConsoleCP(1250);
     SetConsoleOutputCP(1250);
