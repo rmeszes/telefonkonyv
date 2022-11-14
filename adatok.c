@@ -4,11 +4,11 @@
 
 #include "adatok.h"
 #include "debugmalloc.h"
-
+#define TESZT
 /*
  * Beszúr egy új névjegyet a listába, abc sorrend szerinti helyére (név mezõ alapján).
  */
-Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* email) { //TODO: Rendezett beillesztés
+Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* email) {
     Nevjegy *uj;
     uj = malloc(sizeof(Nevjegy));
     strcpy(uj->nev, nev);
@@ -86,18 +86,16 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
         perror("Nem sikerült a fájl megnyitása! Ok");
         return NULL;
     }
+#ifdef TESZT
     printf("Debug: A %s fájl megnyitása sikerült.\n", strdup(fajlnev));
-    //példa-beolvasás debug szempontból
-    char buffer[641]; // 640 karakter lehet egy sorban a mezõk karakterlimitjei miatt TODO: hibakezelés
-    //printf("Debug: Elsõ 100 karaker: %s\n", buffer);
+#endif
+    char buffer[641]; // 640 karakter lehet egy sorban a mezõk karakterlimitjei miatt
     while (fgets(buffer,641,fp) != NULL) {
         Nevjegy *temp;
         temp = uj_elem_fajlbol(buffer);
         uj_nevjegy(nevjegyek, temp->nev, temp->telefonszam, temp->email);
         free(temp);
     }
-
-    //nevjegyek = uj_nevjegy(nevjegyek, "név", "telefonszám", "email"); Teszt elem
 
     fclose(fp);
     return nevjegyek;
