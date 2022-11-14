@@ -16,10 +16,16 @@ Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* emai
     strcpy(uj->telefonszam, telefonszam);
     uj->id = ++lista->id;
 
-    uj->elozo = lista->utolso->elozo;
-    uj->kov = lista->utolso;
-    lista->utolso->elozo->kov = uj;
-    lista->utolso->elozo = uj;
+    Nevjegy *mozgo = lista->elso->kov;
+
+    while (strcmp(mozgo->nev, uj->nev) <= 0 && mozgo->kov != NULL) {
+        mozgo = mozgo->kov;
+    }
+
+    uj->elozo = mozgo->elozo;
+    uj->kov = mozgo;
+    mozgo->elozo->kov = uj;
+    mozgo->elozo = uj;
     return lista;
 }
 
@@ -82,7 +88,7 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     }
     printf("Debug: A %s fájl megnyitása sikerült.\n", strdup(fajlnev));
     //példa-beolvasás debug szempontból
-    char buffer[641]; // 643 karakter lehet egy sorban a mezõk karakterlimitjei miatt TODO: hibakezelés
+    char buffer[641]; // 640 karakter lehet egy sorban a mezõk karakterlimitjei miatt TODO: hibakezelés
     //printf("Debug: Elsõ 100 karaker: %s\n", buffer);
     while (fgets(buffer,641,fp) != NULL) {
         Nevjegy *temp;
