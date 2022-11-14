@@ -5,18 +5,13 @@
 #include "adatok.h"
 #include "debugmalloc.h"
 
-Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* email) {
+Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* email) { //TODO: Rendezett beillesztés
     Nevjegy *uj;
     uj = malloc(sizeof(Nevjegy));
     strcpy(uj->nev, nev);
     strcpy(uj->email, email);
     strcpy(uj->telefonszam, telefonszam);
 
-    //Nevjegy* mozgo = lista->elso;
-
-    /*while (mozgo->kov != lista->utolso) {
-        mozgo = mozgo->kov;
-    }*/
 
     uj->elozo = lista->utolso->elozo;
     uj->kov = lista->utolso;
