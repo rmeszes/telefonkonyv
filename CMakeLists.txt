@@ -3,4 +3,4 @@ project(telefonkonyv C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(telefonkonyv main.c megjelenites.c megjelenites.h adatok.c adatok.h)
+add_executable(telefonkonyv main.c adatok.c adatok.h vcard.c vcard.h)
