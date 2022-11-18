@@ -114,3 +114,54 @@ void lista_felszabaditasa(Nevjegyek* lista) {
     }
     free(lista);
 }
+
+void nevjegyek_kiir(Nevjegyek *lista) {
+    Nevjegy *mozgo = lista->elso;
+    int darab = 0;
+
+    while(mozgo != NULL) {
+        darab++;
+        mozgo = mozgo->kov;
+    }
+    darab--;  //a kezdõ strázsa pointert bemásolom a tömbbe, mert megegyszerûsíti az indexelést, viszont az utolsót nem.
+
+    Nevjegy* elemek[darab];
+
+    mozgo = lista->elso;
+
+    for(int i = 0; mozgo->kov != NULL; i++) {
+        elemek[i] = mozgo;
+        mozgo = mozgo->kov;
+    }
+
+    system("cls");
+    printf("NÉVJEGYEK: (%d) Kilépés: #\n", darab-1);
+    for (int i = 1; i < darab; i++) {
+        printf("\t%d. %s\n", i, elemek[i]->nev);
+    }
+
+    int input;
+    char in_char;
+    bool kilep = false;
+    bool hamis_karakter = false;
+    do {
+        do  {
+            if(scanf("%d", &input)  != 1) {
+                scanf(" %c", &in_char);
+                if(in_char == '#')
+                    kilep = true;
+                else
+                    hamis_karakter = true;
+            }
+            //while (getchar() == '\n');
+            if (!(input >= 1 && input <= darab || kilep) || hamis_karakter ) {
+                printf("Érvénytelen menüpont!\n");
+                hamis_karakter = false;
+            }
+        } while (!(input >= 1 && input <= darab || kilep));
+
+        if(kilep != true && input != darab) { //ha kilép, nem nézzük melyik menüpontot választja!
+            //névjegyek itt ki kell legyenek írva és választani kell
+        }
+    } while (kilep != true && input != darab);
+}

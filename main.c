@@ -8,7 +8,6 @@
 #include "debugmalloc.h"
 #include "adatok.h"
 
-#define TESZT_MENU
 
 int main(int argc, char **argv) {
 #ifdef _WIN32
@@ -53,7 +52,7 @@ int main(int argc, char **argv) {
         if(input != '#' && input != '7') { //ha kilép, nem nézzük melyik menüpontot választja!
             switch (input) {
                 case '1':
-                    //nevjegyek_kiir();
+                    nevjegyek_kiir(adatok);
                     break;
                 case '2':
                     //nevjegy_hozzaadasa_programbol();
