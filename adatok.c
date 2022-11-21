@@ -33,7 +33,7 @@ Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* emai
  * Létrehoz egy Nevjegy elemet egy fájlból beolvasott sorból (sztringbõl).
  */
 
-Nevjegy* uj_elem_fajlbol(const char* sor) {
+static Nevjegy* uj_elem_fajlbol(const char* sor) {
     Nevjegy* uj = malloc(sizeof(Nevjegy));
     int mezo = 0;
     int sor_szamlalo = 0;
@@ -115,6 +115,25 @@ void lista_felszabaditasa(Nevjegyek* lista) {
     free(lista);
 }
 
+static void nevjegyek_almenu(Nevjegy* nevjegy) {
+    system("cls");
+
+    printf("NÉVJEGY\n"
+           "\tNév: %s\n"
+           "\tTelefonszám: %s\n"
+           "\tEmail cím: %s\n"
+           "Visszalépés a # karakter\n", nevjegy->nev, nevjegy->telefonszam, nevjegy->email);
+
+    char input;
+
+    scanf(" %c", &input);
+    while (input != '#') {
+        printf("Érvénytelen bemenet!\n");
+        while(getchar() != '\n');
+        scanf(" %c", &input);
+    }
+}
+
 void nevjegyek_kiir(Nevjegyek *lista) {
     Nevjegy *mozgo = lista->elso;
     int darab = 0;
@@ -134,26 +153,25 @@ void nevjegyek_kiir(Nevjegyek *lista) {
         mozgo = mozgo->kov;
     }
 
-    system("cls");
-    printf("NÉVJEGYEK: (%d) Kilépés: #\n", darab-1);
-    for (int i = 1; i < darab; i++) {
-        printf("\t%d. %s\n", i, elemek[i]->nev);
-    }
-
     int input;
     char in_char;
     bool kilep = false;
     bool hamis_karakter = false;
     do {
+        system("cls");
+        printf("NÉVJEGYEK: (%d) Kilépés: #\n", darab-1);
+        for (int i = 1; i < darab; i++) {
+            printf("\t%d. %s\n", i, elemek[i]->nev);
+        }
         do  {
             if(scanf("%d", &input)  != 1) {
                 scanf(" %c", &in_char);
+                while(getchar() != '\n');
                 if(in_char == '#')
                     kilep = true;
                 else
                     hamis_karakter = true;
             }
-            //while (getchar() == '\n');
             if (!(input >= 1 && input <= darab || kilep) || hamis_karakter ) {
                 printf("Érvénytelen menüpont!\n");
                 hamis_karakter = false;
@@ -161,7 +179,7 @@ void nevjegyek_kiir(Nevjegyek *lista) {
         } while (!(input >= 1 && input <= darab || kilep));
 
         if(kilep != true && input != darab) { //ha kilép, nem nézzük melyik menüpontot választja!
-            //névjegyek itt ki kell legyenek írva és választani kell
+            nevjegyek_almenu(elemek[input]);
         }
     } while (kilep != true && input != darab);
 }

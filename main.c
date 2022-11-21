@@ -46,22 +46,21 @@ int main(int argc, char **argv) {
                "\t7. Kilépés (vagy #)\n"
                "Írja be a választott menüpont számát!\n");
         do  {
-
+            hamis_karakter = false;
             if(scanf("%d", &input)  != 1) {
                 scanf(" %c", &in_char);
+                while(getchar() != '\n');
                 if(in_char == '#')
                     kilep = true;
                 else
                     hamis_karakter = true;
             }
-            //while (getchar() == '\n');
-            if (!(input >= 1 && input <= 7 || kilep) || hamis_karakter ) {
+            if (input >= '1' && input <= '7' | kilep == true || hamis_karakter ) {
                 printf("Érvénytelen menüpont!\n");
-                hamis_karakter = false;
             }
-        } while (!(input >= '1' && input <= '7' || kilep != false));
+        } while (input >= '1' && input <= '7' | kilep == true || hamis_karakter );
 
-        if(kilep != true && input != '7') { //ha kilép, nem nézzük melyik menüpontot választja!
+        if(kilep == false && input != '7') { //ha kilép, nem nézzük melyik menüpontot választja!
             switch (input) {
                 case 1:
                     nevjegyek_kiir(adatok);
@@ -100,8 +99,5 @@ int main(int argc, char **argv) {
     }
 #endif
     lista_felszabaditasa(adatok);
-
-    printf("Nyomj meg egy gombot a programból való kilépéshez!\n");
-    getchar();
     return 0;
 }
