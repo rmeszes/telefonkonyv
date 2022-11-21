@@ -30,7 +30,10 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    char input;
+    int input;
+    char in_char;
+    bool kilep = false;
+    bool hamis_karakter = false;
     do {
         system("cls");
         printf("MENÜ\n"
@@ -43,30 +46,39 @@ int main(int argc, char **argv) {
                "\t7. Kilépés (vagy #)\n"
                "Írja be a választott menüpont számát!\n");
         do  {
-            scanf(" %c", &input);
-            //while (getchar() == '\n');
-            if (!(input >= '1' && input <= '7' || input == '#'))
-                printf("Érvénytelen menüpont!");
-        } while (!(input >= '1' && input <= '7' || input == '#'));
 
-        if(input != '#' && input != '7') { //ha kilép, nem nézzük melyik menüpontot választja!
+            if(scanf("%d", &input)  != 1) {
+                scanf(" %c", &in_char);
+                if(in_char == '#')
+                    kilep = true;
+                else
+                    hamis_karakter = true;
+            }
+            //while (getchar() == '\n');
+            if (!(input >= 1 && input <= 7 || kilep) || hamis_karakter ) {
+                printf("Érvénytelen menüpont!\n");
+                hamis_karakter = false;
+            }
+        } while (!(input >= '1' && input <= '7' || kilep != false));
+
+        if(kilep != true && input != '7') { //ha kilép, nem nézzük melyik menüpontot választja!
             switch (input) {
-                case '1':
+                case 1:
                     nevjegyek_kiir(adatok);
                     break;
-                case '2':
+                case 2:
                     //nevjegy_hozzaadasa_programbol();
                     break;
-                case '3':
+                case 3:
                     //nevjegy_torlese_programbol();
                     break;
-                case '4':
+                case 4:
                     //nevjegy_modositasa();
                     break;
-                case '5':
+                case 5:
                     //kereses();
                     break;
-                case '6':
+                case 6:
                     //vcard();
                     break;
                 default:
@@ -74,7 +86,7 @@ int main(int argc, char **argv) {
                     break;
             }
         }
-    } while (input != '#' && input != '7');
+    } while (kilep != true && input != '7');
 
 #ifdef TESZT_LISTA
     //kiírja a lista elemeit, ha teszt-ként van építve a program
