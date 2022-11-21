@@ -122,14 +122,15 @@ static void nevjegyek_almenu(Nevjegy* nevjegy) {
            "\tNév: %s\n"
            "\tTelefonszám: %s\n"
            "\tEmail cím: %s\n"
-           "Visszalépés a # karakter\n", nevjegy->nev, nevjegy->telefonszam, nevjegy->email);
+           "Visszalépés # karakterrel\n"
+           "## a fõmenühöz tér vissza\n", nevjegy->nev, nevjegy->telefonszam, nevjegy->email);
 
     char input;
 
     scanf(" %c", &input);
     while (input != '#') {
         printf("Érvénytelen bemenet!\n");
-        while(getchar() != '\n');
+        //while(getchar() != '\n');
         scanf(" %c", &input);
     }
 }
@@ -166,11 +167,12 @@ void nevjegyek_kiir(Nevjegyek *lista) {
         do  {
             if(scanf("%d", &input)  != 1) {
                 scanf(" %c", &in_char);
-                while(getchar() != '\n');
                 if(in_char == '#')
                     kilep = true;
-                else
+                else {
                     hamis_karakter = true;
+                    while (getchar() != '\n');
+                }
             }
             if (!(input >= 1 && input <= darab || kilep) || hamis_karakter ) {
                 printf("Érvénytelen menüpont!\n");
@@ -178,8 +180,8 @@ void nevjegyek_kiir(Nevjegyek *lista) {
             }
         } while (!(input >= 1 && input <= darab || kilep));
 
-        if(kilep != true && input != darab) { //ha kilép, nem nézzük melyik menüpontot választja!
+        if(kilep == false && input != darab) { //ha kilép, nem nézzük melyik menüpontot választja!
             nevjegyek_almenu(elemek[input]);
         }
-    } while (kilep != true && input != darab);
+    } while (kilep == false && input != darab);
 }

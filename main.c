@@ -44,7 +44,8 @@ int main(int argc, char **argv) {
                "\t5. Keresés\n"
                "\t6. vCard importálása/exportálása\n"
                "\t7. Kilépés (vagy #)\n"
-               "Írja be a választott menüpont számát!\n");
+               "Írja be a választott menüpont számát!\n"
+               "A programban ahány # karakter van, annyi menüpontot fog visszalépni!");
         do  {
             hamis_karakter = false;
             if(scanf("%d", &input)  != 1) {
@@ -52,8 +53,10 @@ int main(int argc, char **argv) {
                 while(getchar() != '\n');
                 if(in_char == '#')
                     kilep = true;
-                else
+                else {
                     hamis_karakter = true;
+                    while (getchar() != '\n');
+                }
             }
             if (input >= '1' && input <= '7' | kilep == true || hamis_karakter ) {
                 printf("Érvénytelen menüpont!\n");
