@@ -4,11 +4,11 @@
 
 #include "adatok.h"
 #include "debugmalloc.h"
-#define TESZT
+//#define TESZT
 
 void fajlba_ment(Nevjegyek* lista, char* fajlnev) {
-    Nevjegy *mozgo = lista->elso->kov->kov;
-    for(int i = 0; i == lista->id; i++) {
+    Nevjegy *mozgo = lista->elso->kov;
+    for(int i = 1; mozgo->id != lista->id; i++) {
         mozgo = mozgo->kov;
     }
     FILE* fp;
@@ -20,7 +20,6 @@ void fajlba_ment(Nevjegyek* lista, char* fajlnev) {
         while (getchar() != '\n');
         return;
     }
-
     fprintf(fp, "%s;%s;%s;\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
     fclose(fp);
 }
