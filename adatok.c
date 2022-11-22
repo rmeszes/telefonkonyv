@@ -14,6 +14,7 @@ void fajlba_ment(Nevjegyek* lista, char* fajlnev) {
     FILE* fp;
     fp = fopen(fajlnev, "a");
     if (fp == NULL) {
+        //TODO: Névjegy törlése a láncolt listából funkció
         perror("Nem sikerült a fájlba mentés");
         printf("Továbblépés az Enter billentyûvel.");
         while (getchar() != '\n');
@@ -101,9 +102,12 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     FILE* fp;
     fp = fopen(strdup(fajlnev), "r");
     if(fp == NULL) {
-        lista_felszabaditasa(nevjegyek);
-        perror("Nem sikerült a fájl megnyitása! Ok");
-        return NULL;
+        fp = fopen(strdup(fajlnev), "w");
+        if (fp == NULL) {
+            lista_felszabaditasa(nevjegyek);
+            perror("Nem sikerült a fájl megnyitása! Ok");
+            return NULL;
+        }
     }
 #ifdef TESZT
     printf("Debug: A %s fájl megnyitása sikerült.\n", strdup(fajlnev));
