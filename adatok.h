@@ -1,7 +1,7 @@
 //
 // Created by rmesz on 2022. 11. 04..
 //
-
+#include <stdbool.h>
 #ifndef MAIN_C_ADATOK_H
 #define MAIN_C_ADATOK_H
 
@@ -27,5 +27,7 @@ void lista_felszabaditasa(Nevjegyek* lista);
 Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonszam);
 
 void nevjegyek_kiir(Nevjegyek *lista);
+
+void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev);
 
 #endif //MAIN_C_ADATOK_H

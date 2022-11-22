@@ -5,6 +5,25 @@
 #include "adatok.h"
 #include "debugmalloc.h"
 #define TESZT
+
+void fajlba_ment(Nevjegyek* lista, char* fajlnev) {
+    Nevjegy *mozgo = lista->elso->kov->kov;
+    for(int i = 0; i == lista->id; i++) {
+        mozgo = mozgo->kov;
+    }
+    FILE* fp;
+    fp = fopen(fajlnev, "a");
+    if (fp == NULL) {
+        perror("Nem sikerült a fájlba mentés");
+        printf("Továbblépés az Enter billentyûvel.");
+        while (getchar() != '\n');
+        return;
+    }
+
+    fprintf(fp, "%s;%s;%s;\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
+    fclose(fp);
+}
+
 /*
  * Beszúr egy új névjegyet a listába, abc sorrend szerinti helyére (név mezõ alapján).
  */
@@ -184,4 +203,20 @@ void nevjegyek_kiir(Nevjegyek *lista) {
             nevjegyek_almenu(elemek[input]);
         }
     } while (kilep == false && input != darab);
+}
+
+void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev) {
+    system("cls");
+    printf("ÚJ NÉVJEGY HOZZÁADÁSA\n");
+    printf("Név (maximum 300 karakter):");
+    char nev[301];
+    gets(nev);
+    printf("Telefonszám (maximum 300 karakter):");
+    char telefonszam[21];
+    gets(telefonszam);
+    printf("Email cím (maximum 300 karakter):");
+    char email[321];
+    gets(email);
+    uj_nevjegy(lista,nev,telefonszam,email);
+    fajlba_ment(lista,fajlnev);
 }

@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
                "\t6. vCard importálása/exportálása\n"
                "\t7. Kilépés (vagy #)\n"
                "Írja be a választott menüpont számát!\n"
-               "A programban ahány # karakter van, annyi menüpontot fog visszalépni!");
+               "A programban ahány # karakter van, annyi menüpontot fog visszalépni!\n");
         do  {
             hamis_karakter = false;
             if(scanf("%d", &input)  != 1) {
@@ -64,12 +64,13 @@ int main(int argc, char **argv) {
         } while (input >= '1' && input <= '7' | kilep == true || hamis_karakter );
 
         if(kilep == false && input != '7') { //ha kilép, nem nézzük melyik menüpontot választja!
+            while(getchar() != '\n');
             switch (input) {
                 case 1:
                     nevjegyek_kiir(adatok);
                     break;
                 case 2:
-                    //nevjegy_hozzaadasa_programbol();
+                    nevjegy_hozzaadasa_programbol(adatok,fajlnev);
                     break;
                 case 3:
                     //nevjegy_torlese_programbol();
