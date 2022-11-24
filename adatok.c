@@ -12,19 +12,14 @@ void nevjegy_torlese_listabol(Nevjegy* elem) {
     free(elem);
 }
 
-void fajlba_ment(Nevjegyek* lista, char* fajlnev) {
+bool fajlba_ment(Nevjegyek* lista, char* fajlnev) {
     FILE* fp;
     fp = fopen(fajlnev, "w");
     if (fp == NULL) {
-        Nevjegy *mozgo = lista->elso->kov;
-        for(int i = 1; mozgo->id != lista->id; i++) {
-            mozgo = mozgo->kov;
-        }
-        nevjegy_torlese_listabol(mozgo);
         perror("Nem sikerült a fájlba mentés");
         printf("Továbblépés az Enter billentyûvel.");
         while (getchar() != '\n');
-        return;
+        return false;
     }
     Nevjegy *mozgo = lista->elso->kov;
     while (mozgo->kov != lista->utolso) {
@@ -32,6 +27,7 @@ void fajlba_ment(Nevjegyek* lista, char* fajlnev) {
         mozgo = mozgo->kov;
     }
     fclose(fp);
+    return true;
 }
 
 /*
@@ -226,6 +222,7 @@ void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev) {
     printf("Név (maximum 300 karakter):");
     char nev[301];
     gets(nev);
+    nev[0] = toupper(nev[0]);
     printf("Telefonszám (maximum 20 karakter):");
     char telefonszam[21];
     gets(telefonszam);
@@ -233,7 +230,13 @@ void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev) {
     char email[321];
     gets(email);
     uj_nevjegy(lista,nev,telefonszam,email);
-    fajlba_ment(lista,fajlnev);
+    if(fajlba_ment(lista,fajlnev) == false) {
+        Nevjegy *mozgo = lista->elso->kov;
+        while (mozgo->id != lista->id) {
+            mozgo = mozgo->kov;
+        }
+        nevjegy_torlese_listabol(mozgo);
+    }
 }
 
 void nevjegy_torlese_programbol(Nevjegyek *lista, char *fajlnev) {
