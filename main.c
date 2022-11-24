@@ -65,17 +65,15 @@ int main(int argc, char **argv) {
 
         if(kilep == false && input != '7') { //ha kilép, nem nézzük melyik menüpontot választja!
             while(getchar() != '\n');
-            Nevjegy* temp;
             switch (input) {
                 case 1:
-                    temp = nevjegyek_kiir(adatok);
-                    if (temp != NULL) nevjegyek_almenu(temp);
+                    nevjegyek_almenu(adatok);
                     break;
                 case 2:
                     nevjegy_hozzaadasa_programbol(adatok,fajlnev);
                     break;
                 case 3:
-                    //nevjegy_torlese_programbol();
+                    nevjegy_torlese_programbol(adatok, fajlnev);
                     break;
                 case 4:
                     //nevjegy_modositasa();

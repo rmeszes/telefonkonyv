@@ -143,14 +143,16 @@ void lista_felszabaditasa(Nevjegyek* lista) {
     free(lista);
 }
 
-void nevjegyek_almenu(Nevjegy* nevjegy) {
+void nevjegyek_almenu(Nevjegyek* lista) {
     system("cls");
+    Nevjegy *temp = nevjegyek_kiir(lista);
+    if (temp == NULL) return;
 
     printf("NÉVJEGY\n"
            "\tNév: %s\n"
            "\tTelefonszám: %s\n"
            "\tEmail cím: %s\n"
-           "Visszalépés # karakterrel\n", nevjegy->nev, nevjegy->telefonszam, nevjegy->email);
+           "Visszalépés # karakterrel\n", temp->nev, temp->telefonszam, temp->email);
 
     char input;
 
@@ -235,5 +237,6 @@ void nevjegy_torlese_programbol(Nevjegyek *lista, char *fajlnev) {
     printf("NÉVJEGY TÖRLÉSE\n"
            "Válassza ki a törlendõ névjegyet!\n");
     //TODO: nevjegy_torlese_fajlbol
-    nevjegy_torlese_listabol(nevjegyek_kiir(lista));
+    Nevjegy* temp = nevjegyek_kiir(lista);
+    if (temp != NULL)nevjegy_torlese_listabol(temp);
 }

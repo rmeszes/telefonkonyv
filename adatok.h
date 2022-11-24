@@ -28,7 +28,7 @@ Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonsza
 
 Nevjegy* nevjegyek_kiir(Nevjegyek *lista);
 
-void nevjegyek_almenu(Nevjegy* nevjegy);
+void nevjegyek_almenu(Nevjegyek* lista);
 
 void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev);
 
