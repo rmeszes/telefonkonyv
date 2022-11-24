@@ -13,20 +13,24 @@ void nevjegy_torlese_listabol(Nevjegy* elem) {
 }
 
 void fajlba_ment(Nevjegyek* lista, char* fajlnev) {
-    Nevjegy *mozgo = lista->elso->kov;
-    for(int i = 1; mozgo->id != lista->id; i++) {
-        mozgo = mozgo->kov;
-    }
     FILE* fp;
-    fp = fopen(fajlnev, "a");
+    fp = fopen(fajlnev, "w");
     if (fp == NULL) {
+        Nevjegy *mozgo = lista->elso->kov;
+        for(int i = 1; mozgo->id != lista->id; i++) {
+            mozgo = mozgo->kov;
+        }
         nevjegy_torlese_listabol(mozgo);
         perror("Nem sikerült a fájlba mentés");
         printf("Továbblépés az Enter billentyûvel.");
         while (getchar() != '\n');
         return;
     }
-    fprintf(fp, "%s;%s;%s;\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
+    Nevjegy *mozgo = lista->elso->kov;
+    while (mozgo->kov != lista->utolso) {
+        fprintf(fp, "%s;%s;%s;\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
+        mozgo = mozgo->kov;
+    }
     fclose(fp);
 }
 
