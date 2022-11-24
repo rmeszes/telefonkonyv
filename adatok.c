@@ -6,6 +6,12 @@
 #include "debugmalloc.h"
 //#define TESZT
 
+void nevjegy_torlese_listabol(Nevjegy* elem) {
+    elem->elozo->kov = elem->kov;
+    elem->kov->elozo = elem->elozo;
+    free(elem);
+}
+
 void fajlba_ment(Nevjegyek* lista, char* fajlnev) {
     Nevjegy *mozgo = lista->elso->kov;
     for(int i = 1; mozgo->id != lista->id; i++) {
@@ -14,7 +20,7 @@ void fajlba_ment(Nevjegyek* lista, char* fajlnev) {
     FILE* fp;
     fp = fopen(fajlnev, "a");
     if (fp == NULL) {
-        //TODO: Névjegy törlése a láncolt listából funkció
+        nevjegy_torlese_listabol(mozgo);
         perror("Nem sikerült a fájlba mentés");
         printf("Továbblépés az Enter billentyûvel.");
         while (getchar() != '\n');
@@ -137,15 +143,14 @@ void lista_felszabaditasa(Nevjegyek* lista) {
     free(lista);
 }
 
-static void nevjegyek_almenu(Nevjegy* nevjegy) {
+void nevjegyek_almenu(Nevjegy* nevjegy) {
     system("cls");
 
     printf("NÉVJEGY\n"
            "\tNév: %s\n"
            "\tTelefonszám: %s\n"
            "\tEmail cím: %s\n"
-           "Visszalépés # karakterrel\n"
-           "## a fõmenühöz tér vissza\n", nevjegy->nev, nevjegy->telefonszam, nevjegy->email);
+           "Visszalépés # karakterrel\n", nevjegy->nev, nevjegy->telefonszam, nevjegy->email);
 
     char input;
 
@@ -157,7 +162,7 @@ static void nevjegyek_almenu(Nevjegy* nevjegy) {
     }
 }
 
-void nevjegyek_kiir(Nevjegyek *lista) {
+Nevjegy* nevjegyek_kiir(Nevjegyek *lista) {
     Nevjegy *mozgo = lista->elso;
     int darab = 0;
 
@@ -203,9 +208,10 @@ void nevjegyek_kiir(Nevjegyek *lista) {
         } while (!(input >= 1 && input <= darab || kilep));
 
         if(kilep == false && input != darab) { //ha kilép, nem nézzük melyik menüpontot választja!
-            nevjegyek_almenu(elemek[input]);
+            return elemek[input];
         }
     } while (kilep == false && input != darab);
+    return NULL;
 }
 
 void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev) {
@@ -214,12 +220,20 @@ void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev) {
     printf("Név (maximum 300 karakter):");
     char nev[301];
     gets(nev);
-    printf("Telefonszám (maximum 300 karakter):");
+    printf("Telefonszám (maximum 20 karakter):");
     char telefonszam[21];
     gets(telefonszam);
-    printf("Email cím (maximum 300 karakter):");
+    printf("Email cím (maximum 320 karakter):");
     char email[321];
     gets(email);
     uj_nevjegy(lista,nev,telefonszam,email);
     fajlba_ment(lista,fajlnev);
+}
+
+void nevjegy_torlese_programbol(Nevjegyek *lista, char *fajlnev) {
+    system("cls");
+    printf("NÉVJEGY TÖRLÉSE\n"
+           "Válassza ki a törlendõ névjegyet!\n");
+    //TODO: nevjegy_torlese_fajlbol
+    nevjegy_torlese_listabol(nevjegyek_kiir(lista));
 }

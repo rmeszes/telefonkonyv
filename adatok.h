@@ -26,8 +26,12 @@ void lista_felszabaditasa(Nevjegyek* lista);
 
 Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonszam);
 
-void nevjegyek_kiir(Nevjegyek *lista);
+Nevjegy* nevjegyek_kiir(Nevjegyek *lista);
+
+void nevjegyek_almenu(Nevjegy* nevjegy);
 
 void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev);
+
+void nevjegy_torlese_programbol(Nevjegyek *lista, char *fajlnev);
 
 #endif //MAIN_C_ADATOK_H
