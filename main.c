@@ -9,6 +9,8 @@
 #include "adatok.h"
 
 
+
+
 int main(int argc, char **argv) {
 #ifdef _WIN32
     SetConsoleCP(1250);
@@ -77,7 +79,7 @@ int main(int argc, char **argv) {
                     nevjegy_torlese_programbol(adatok, fajlnev);
                     break;
                 case 4:
-                    //nevjegy_modositasa();
+                    nevjegy_modositasa(adatok, fajlnev);
                     break;
                 case 5:
                     //kereses();
@@ -106,3 +108,5 @@ int main(int argc, char **argv) {
     lista_felszabaditasa(adatok);
     return 0;
 }
+
+

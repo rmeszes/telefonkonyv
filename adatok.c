@@ -186,7 +186,6 @@ Nevjegy* nevjegyek_kiir(Nevjegyek *lista) {
     bool kilep = false;
     bool hamis_karakter = false;
     do {
-        system("cls");
         printf("NÉVJEGYEK: (%d) Kilépés: #\n", darab-1);
         for (int i = 1; i < darab; i++) {
             printf("\t%d. %s\n", i, elemek[i]->nev);
@@ -220,13 +219,25 @@ void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev) {
     printf("Név (maximum 300 karakter):");
     char nev[301];
     gets(nev);
+    while (nev[0] == '\0') {
+        printf("Kérlek írj be érvényes nevet.\n");
+        gets(nev);
+    }
     nev[0] = toupper(nev[0]);
     printf("Telefonszám (maximum 20 karakter):");
     char telefonszam[21];
     gets(telefonszam);
+    while (telefonszam[0] == '\0') {
+        printf("Kérlek írj érvényes telefonszámot.\n");
+        gets(telefonszam);
+    }
     printf("Email cím (maximum 320 karakter):");
     char email[321];
     gets(email);
+    while (email[0] == '\0') {
+        printf("Kérlek írj érvényes email címet.\n");
+        gets(email);
+    }
     uj_nevjegy(lista,nev,telefonszam,email);
     if(fajlba_ment(lista,fajlnev) == false) {
         Nevjegy *mozgo = lista->elso->kov;
@@ -243,6 +254,19 @@ void nevjegy_torlese_programbol(Nevjegyek *lista, char *fajlnev) {
            "Válassza ki a törlendõ névjegyet!\n");
     Nevjegy* temp = nevjegyek_kiir(lista);
     if (temp != NULL) {
+        nevjegy_torlese_listabol(temp);
+        fajlba_ment(lista, fajlnev);
+    }
+}
+
+void nevjegy_modositasa(Nevjegyek *lista, char *fajlnev) {
+    system("cls");
+    printf("NÉVJEGY MÓDOSÍTÁSA\n"
+           "Válassza ki a módosítani való névjegyet!\n");
+    Nevjegy* temp = nevjegyek_kiir(lista);
+    if (temp != NULL) {
+        while(getchar() != '\n');
+        nevjegy_hozzaadasa_programbol(lista, fajlnev);
         nevjegy_torlese_listabol(temp);
         fajlba_ment(lista, fajlnev);
     }
