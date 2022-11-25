@@ -34,4 +34,6 @@ void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev);
 
 void nevjegy_torlese_programbol(Nevjegyek *lista, char *fajlnev);
 
+bool fajlba_ment(Nevjegyek* lista, char* fajlnev);
+
 #endif //MAIN_C_ADATOK_H

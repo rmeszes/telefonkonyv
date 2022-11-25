@@ -29,6 +29,7 @@ int main(int argc, char **argv) {
         getchar();
         return 0;
     }
+    fajlba_ment(adatok, fajlnev);
 
     int input;
     char in_char;

@@ -22,7 +22,7 @@ bool fajlba_ment(Nevjegyek* lista, char* fajlnev) {
         return false;
     }
     Nevjegy *mozgo = lista->elso->kov;
-    while (mozgo->kov != lista->utolso) {
+    while (mozgo->kov != NULL) {
         fprintf(fp, "%s;%s;%s;\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
         mozgo = mozgo->kov;
     }
@@ -106,14 +106,12 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
 
     FILE* fp;
     fp = fopen(strdup(fajlnev), "r");
-    if(fp == NULL) {
-        fp = fopen(strdup(fajlnev), "w");
-        if (fp == NULL) {
-            lista_felszabaditasa(nevjegyek);
-            perror("Nem sikerült a fájl megnyitása! Ok");
-            return NULL;
-        }
+    if (fp == NULL) {
+        lista_felszabaditasa(nevjegyek);
+        perror("Nem sikerült a fájl megnyitása! Ok");
+        return NULL;
     }
+
 #ifdef TESZT
     printf("Debug: A %s fájl megnyitása sikerült.\n", strdup(fajlnev));
 #endif
@@ -243,7 +241,9 @@ void nevjegy_torlese_programbol(Nevjegyek *lista, char *fajlnev) {
     system("cls");
     printf("NÉVJEGY TÖRLÉSE\n"
            "Válassza ki a törlendõ névjegyet!\n");
-    //TODO: nevjegy_torlese_fajlbol
     Nevjegy* temp = nevjegyek_kiir(lista);
-    if (temp != NULL)nevjegy_torlese_listabol(temp);
+    if (temp != NULL) {
+        nevjegy_torlese_listabol(temp);
+        fajlba_ment(lista, fajlnev);
+    }
 }
