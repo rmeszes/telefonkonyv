@@ -6,6 +6,8 @@
 
 #include "debugmalloc.h"
 #include "adatok.h"
+#include "menu.h"
+#include "kereses.h"
 
 int main(int argc, char **argv) {
 #ifdef _WIN32
@@ -90,17 +92,6 @@ int main(int argc, char **argv) {
         }
     } while (kilep != true && input != '7');
 
-#ifdef TESZT_LISTA
-    //kiírja a lista elemeit, ha teszt-ként van építve a program
-    Nevjegy* mozgo = adatok->elso->kov;
-    printf("Debug: A lista elemei:\n");
-    while (mozgo->kov != NULL) {
-        printf("ID: %d\n", mozgo->id);
-        printf("//\tNév: %s\n//\tTelefonszám: %s\n//\tEmail: %s\n", mozgo->nev, mozgo->telefonszam, mozgo->email);
-        printf("\n");
-        mozgo = mozgo->kov;
-    }
-#endif
     lista_felszabaditasa(adatok);
     return 0;
 }

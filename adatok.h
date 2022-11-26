@@ -24,20 +24,8 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev);
 
 void lista_felszabaditasa(Nevjegyek* lista);
 
-Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* email, char* telefonszam);
-
-Nevjegy* nevjegyek_kiir(Nevjegyek *lista);
-
-void nevjegyek_almenu(Nevjegyek* lista);
-
-void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev);
-
-void nevjegy_torlese_programbol(Nevjegyek *lista, char *fajlnev);
+Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* email);
 
 bool fajlba_ment(Nevjegyek* lista, char* fajlnev);
-
-void nevjegy_modositasa(Nevjegyek *lista, char *fajlnev);
-
-void kereses(Nevjegyek *lista);
 
 #endif //MAIN_C_ADATOK_H
