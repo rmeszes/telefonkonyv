@@ -276,45 +276,50 @@ void nevjegy_modositasa(Nevjegyek *lista, char *fajlnev) {
     }
 }
 
-bool strmatch(const char str[], const char pattern[])
+bool strmatch(const char vizsgalando[], const char feltetel[])
 {
-    int n = strlen(str);
-    int m = strlen(pattern);
+    int vizsg_hossz = strlen(vizsgalando);
+    int feltetel_hossz = strlen(feltetel);
 
-    if (m == 0)
-        return (n == 0);
+    if (feltetel_hossz == 0)
+        return (vizsg_hossz == 0); // üres feltétel, csak üres adattal lehetne egyenlõ
 
-    bool lookup[n + 1][m + 1];
+    bool eredmenyek[vizsg_hossz + 1][feltetel_hossz + 1]; //eredmények tárolására
+
+    //feltöltés false-al
+    for (int i = 0; i < vizsg_hossz + 1; ++i) {
+        for (int j = 0; j < feltetel_hossz + 1; ++j) {
+            eredmenyek[i][j] = false;
+        }
+    }
+    eredmenyek[0][0] = true;
+
+    for (int j = 1; j <= feltetel_hossz; j++)
+        if (feltetel[j - 1] == '*')
+            eredmenyek[0][j] = eredmenyek[0][j - 1];
+
+    for (int j = 1; j <= feltetel_hossz; j++)
+        if (feltetel[j - 1] == '*')
+            eredmenyek[0][j] = eredmenyek[0][j - 1];
 
 
-    memset(lookup, false, sizeof(lookup));
+    for (int i = 1; i <= vizsg_hossz; i++) {
+        for (int j = 1; j <= feltetel_hossz; j++) {
 
-
-    lookup[0][0] = true;
-
-
-    for (int j = 1; j <= m; j++)
-        if (pattern[j - 1] == '*')
-            lookup[0][j] = lookup[0][j - 1];
-
-
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= m; j++) {
-
-            if (pattern[j - 1] == '*')
-                lookup[i][j]
-                        = lookup[i][j - 1] || lookup[i - 1][j];
-            else if (pattern[j - 1] == '?'
-                     || str[i - 1] == pattern[j - 1])
-                lookup[i][j] = lookup[i - 1][j - 1];
+            if (feltetel[j - 1] == '*')
+                eredmenyek[i][j]
+                        = eredmenyek[i][j - 1] || eredmenyek[i - 1][j];
+            else if (feltetel[j - 1] == '?'
+                     || vizsgalando[i - 1] == feltetel[j - 1])
+                eredmenyek[i][j] = eredmenyek[i - 1][j - 1];
 
                 // If characters don't match
             else
-                lookup[i][j] = false;
+                eredmenyek[i][j] = false;
         }
     }
 
-    return lookup[n][m];
+    return eredmenyek[vizsg_hossz][feltetel_hossz];
 }
 
 static int kereses_darab(Nevjegyek* lista, int mezo, char *feltetel) {
