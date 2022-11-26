@@ -1,6 +1,10 @@
 //
 // Created by rmesz on 2022. 11. 04..
 //
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 #include "adatok.h"
 #include "debugmalloc.h"

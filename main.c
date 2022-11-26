@@ -4,12 +4,8 @@
 #include <windows.h>
 #endif
 
-
 #include "debugmalloc.h"
 #include "adatok.h"
-
-
-
 
 int main(int argc, char **argv) {
 #ifdef _WIN32
@@ -82,7 +78,7 @@ int main(int argc, char **argv) {
                     nevjegy_modositasa(adatok, fajlnev);
                     break;
                 case 5:
-                    //kereses();
+                    kereses(adatok);
                     break;
                 case 6:
                     //vcard();

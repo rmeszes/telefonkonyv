@@ -38,4 +38,6 @@ bool fajlba_ment(Nevjegyek* lista, char* fajlnev);
 
 void nevjegy_modositasa(Nevjegyek *lista, char *fajlnev);
 
+void kereses(Nevjegyek *lista);
+
 #endif //MAIN_C_ADATOK_H
