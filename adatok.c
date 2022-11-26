@@ -306,16 +306,9 @@ bool strmatch(const char vizsgalando[], const char feltetel[])
     for (int i = 1; i <= vizsg_hossz; i++) {
         for (int j = 1; j <= feltetel_hossz; j++) {
 
-            if (feltetel[j - 1] == '*')
-                eredmenyek[i][j]
-                        = eredmenyek[i][j - 1] || eredmenyek[i - 1][j];
-            else if (feltetel[j - 1] == '?'
-                     || vizsgalando[i - 1] == feltetel[j - 1])
-                eredmenyek[i][j] = eredmenyek[i - 1][j - 1];
-
-                // If characters don't match
-            else
-                eredmenyek[i][j] = false;
+            if (feltetel[j - 1] == '*') eredmenyek[i][j] = eredmenyek[i][j - 1] || eredmenyek[i - 1][j];
+            else if (feltetel[j - 1] == '?' || vizsgalando[i - 1] == feltetel[j - 1]) eredmenyek[i][j] = eredmenyek[i - 1][j - 1];
+            else eredmenyek[i][j] = false;
         }
     }
 
