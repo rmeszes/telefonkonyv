@@ -150,7 +150,7 @@ void kereses(Nevjegyek * lista) {
         if (getchar() == '#') return;
     }
     while (mezo <= 1 & mezo >= 3) {
-        printf("Érvénytelen menüpont!");
+        printf("Érvénytelen menüpont!\n");
         scanf("%d", &mezo);
         while (getchar() != '\n') {
             if (getchar() == '#') return;

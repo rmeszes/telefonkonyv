@@ -96,7 +96,7 @@ void nevjegy_hozzaadasa_programbol(Nevjegyek *lista, char *fajlnev) {
         gets(nev);
     }
     nev[0] = toupper(nev[0]);
-    printf("Telefonszám (maximum 20 karakter):");
+    printf("Telefonszám (maximum 30 karakter):");
     char telefonszam[21];
     gets(telefonszam);
     while (telefonszam[0] == '\0') {

@@ -9,7 +9,7 @@ typedef struct Nevjegy {
     int id;
     char nev[301];
     char email[321];
-    char telefonszam[21];
+    char telefonszam[31];
 
     struct Nevjegy *elozo, *kov;
 }Nevjegy;

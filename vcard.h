@@ -5,4 +5,8 @@
 #ifndef TELEFONKONYV_VCARD_H
 #define TELEFONKONYV_VCARD_H
 
+#include "adatok.h"
+
+Nevjegyek* vcard(Nevjegyek* lista);
+
 #endif //TELEFONKONYV_VCARD_H

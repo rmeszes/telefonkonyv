@@ -1,0 +1,8 @@
+//
+// Created by rmesz on 2022. 11. 27..
+//
+
+#ifndef TELEFONKONYV_VCARD_EXPORT_H
+#define TELEFONKONYV_VCARD_EXPORT_H
+
+#endif //TELEFONKONYV_VCARD_EXPORT_H

@@ -8,6 +8,7 @@
 #include "adatok.h"
 #include "menu.h"
 #include "kereses.h"
+#include "vcard.h"
 
 int main(int argc, char **argv) {
 #ifdef _WIN32
@@ -15,12 +16,12 @@ int main(int argc, char **argv) {
     SetConsoleOutputCP(1250);
 #endif
     //fájlnév ellenõrzése/bekérése
-    char fajlnev[101];
+    char fajlnev[1001];
     if (argc > 1) {
         strcpy(fajlnev,argv[1]);
     }
     else {
-        printf("A megnyitandó fájl neve: (maximum 100 karakter!)\n");
+        printf("A megnyitandó fájl neve: (maximum 1000 karakter!)\n");
         gets(fajlnev);
     }
     Nevjegyek *adatok = fajlbol_beolvas(fajlnev);
@@ -83,7 +84,10 @@ int main(int argc, char **argv) {
                     kereses(adatok);
                     break;
                 case 6:
-                    //vcard();
+                    adatok = vcard(adatok);
+#ifdef MENTS
+                    fajlba_ment(adatok,fajlnev);
+#endif
                     break;
                 default:
                     printf("Ismeretlen hiba történt");
