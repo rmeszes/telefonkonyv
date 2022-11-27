@@ -3,12 +3,19 @@
 //
 
 #include "vcard_export.h"
-#include "debugmalloc.h"
+//#include "debugmalloc.h"
+#include <malloc.h>
 #ifdef WIN32
 #include <windows.h>
 #endif
 #include "menu.h"
+#include "stdio.h"
 
+
+/*!
+ * Bekéri, hogy milyen fájlnéven mentse a fájlt, majd ezt megnyitja olvasásra.
+ * @return A megnyitott FILE*, vagy NULL.
+ */
 static FILE* fajl_megnyitas() {
 #ifdef WIN32
     system("cls");

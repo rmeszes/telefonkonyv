@@ -9,6 +9,8 @@
 #include "windows.h"
 #endif
 
+//#include "debugmalloc.h"
+
 void nevjegyek_almenu(Nevjegyek* lista) {
 #ifdef _WIN32
     system("cls");

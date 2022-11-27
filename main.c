@@ -4,7 +4,7 @@
 #include <windows.h>
 #endif
 
-#include "debugmalloc.h"
+//#include "debugmalloc.h"
 #include "adatok.h"
 #include "menu.h"
 #include "kereses.h"
@@ -16,7 +16,6 @@ int main(int argc, char **argv) {
     SetConsoleCP(1250);
     SetConsoleOutputCP(1250);
 #endif
-    //fájlnév ellenõrzése/bekérése
     char fajlnev[1001];
     if (argc > 1) {
         strcpy(fajlnev,argv[1]);
@@ -25,7 +24,7 @@ int main(int argc, char **argv) {
         printf("A megnyitandó fájl neve: (maximum 1000 karakter!)\n");
         gets(fajlnev);
     }
-    Nevjegyek *adatok = fajlbol_beolvas(fajlnev);
+    Nevjegyek *adatok = fajlbol_beolvas(fajlnev); //!<A fõ adattárolója a programnak. Ide olvassa be a névjegyeket és ezzel végez el minden mûveletet.
     if (adatok == NULL) {
         printf("Nyomj meg egy gombot a programból való kilépéshez!\n");
         getchar();

@@ -7,6 +7,11 @@
 
 #include "adatok.h"
 
+/*!
+ * A vCard-ok kezelésére szolgáló menürendszert hívja meg.
+ * @param lista A névjegyek listája.
+ * @return Visszatér a listával, annak esetére ha importálásra került sor.
+ */
 Nevjegyek* vcard(Nevjegyek* lista);
 
 #endif //TELEFONKONYV_VCARD_H

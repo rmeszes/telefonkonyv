@@ -3,7 +3,7 @@
 //
 #include "vcard.h"
 #include "stdio.h"
-#include "debugmalloc.h"
+//#include "debugmalloc.h"
 #ifdef WIN32
 #include <windows.h>
 #endif

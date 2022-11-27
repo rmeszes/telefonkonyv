@@ -6,7 +6,7 @@
 #include <string.h>
 
 #include "adatok.h"
-#include "debugmalloc.h"
+//#include "debugmalloc.h"
 
 void nevjegy_torlese_listabol(Nevjegy* elem) {
     elem->elozo->kov = elem->kov;
@@ -32,9 +32,6 @@ bool fajlba_ment(Nevjegyek* lista, char* fajlnev) {
     return true;
 }
 
-/*
- * Beszúr egy új névjegyet a listába, abc sorrend szerinti helyére (név mezõ alapján).
- */
 Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* email) {
     Nevjegy *uj;
     uj = malloc(sizeof(Nevjegy));
@@ -56,11 +53,19 @@ Nevjegyek* uj_nevjegy(Nevjegyek* lista, char* nev, char* telefonszam, char* emai
     return lista;
 }
 
-/*
- * Létrehoz egy Nevjegy elemet egy fájlból beolvasott sorból (sztringbõl).
+/*!
+ * \brief Egy sort Nevjegy elemre alakít.
+ *
+ * Foglal egy új Nevjegy elemet, aminek az adatszerkezetét felhasználva eltárolja benne a szükséges adatokat, miután azt a sorból kiolvasta.
+ *
+ * A mezo változó tárolja, hogy egy soron belül hanyadik mezõnél tartunk, amit ; karakterenként növelünk.
+ * Ez egy switch-be folyik, ami ez alapján a beolvasott karaktert az uj elembe helyezi.
+ *
+ * FONTOS! A funkció egy dinamikusan lefoglalt elemet ad vissza, a hívó függvény felelõssége ennek a felszabadítása!
+ * @param sor A feltörendõ sor.
+ * @return Egy Nevjegy elem, amiben benne vannak a beolvasott adatok.
  */
-
-static Nevjegy* uj_elem_fajlbol(const char* sor) {
+static Nevjegy* sor_darabol(const char* sor) {
     Nevjegy* uj = malloc(sizeof(Nevjegy));
     int mezo = 0;
     int sor_szamlalo = 0;
@@ -93,9 +98,6 @@ static Nevjegy* uj_elem_fajlbol(const char* sor) {
     return uj;
 }
 
-/*
- * Visszatér a beolvasott láncolt lista pointerével, amit a hívónak fel kell szabadítani!
- */
 Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     Nevjegyek *nevjegyek = (Nevjegyek*) malloc(sizeof(Nevjegyek));
     nevjegyek->elso = (Nevjegy*) malloc(sizeof(Nevjegy));
@@ -117,7 +119,7 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
     char buffer[641]; // 640 karakter lehet egy sorban a mezõk karakterlimitjei miatt
     while (fgets(buffer,641,fp) != NULL) {
         Nevjegy *temp;
-        temp = uj_elem_fajlbol(buffer);
+        temp = sor_darabol(buffer);
         uj_nevjegy(nevjegyek, temp->nev, temp->telefonszam, temp->email);
         free(temp);
     }
@@ -127,9 +129,6 @@ Nevjegyek* fajlbol_beolvas(char* fajlnev) {
 }
 
 
-/*
- * lista felszabadítás.
- */
 void lista_felszabaditasa(Nevjegyek* lista) {
     Nevjegy *iter = lista->elso;
     while(iter != NULL) {

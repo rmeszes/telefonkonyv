@@ -3,8 +3,16 @@
 //
 
 #include "vcard_import.h"
-#include "debugmalloc.h"
+//#include "debugmalloc.h"
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
 
+/*!
+ * Kiemeli egy stringbõl az elsõ betûit, amíg nem talál ':'-t, ';'-t, vagy nem olvasott be 5 karaktert.
+ * @param sor Ebbõl olvassa ki a karaktereket.
+ * @param dest Ide fogja beleírni.
+ */
 static void type_extractor(const char sor[], char* dest) {
     int i = 0;
     while (i < 5 & sor[i] != ':' & sor[i] != ';') {
