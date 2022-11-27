@@ -18,6 +18,10 @@ void nevjegyek_almenu(Nevjegyek* lista) {
     Nevjegy *temp = nevjegyek_kiir(lista);
     if (temp == NULL) return;
 
+#ifdef _WIN32
+    system("cls");
+#endif
+
     printf("NÉVJEGY\n"
            "\tNév: %s\n"
            "\tTelefonszám: %s\n"
