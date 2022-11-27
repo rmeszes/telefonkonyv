@@ -18,15 +18,17 @@ Nevjegyek* vcard_import(Nevjegyek* lista) {
 #ifdef WIN32
     system("cls");
 #endif
-    printf("ImportÃ¡lni valÃ³ fÃ¡jl: (maximum 1000 karakter)\n");
+    printf("Importálni való fájl: (maximum 1000 karakter)\n");
     char fajlnev[1001];
     while(getchar() != '\n');
     gets(fajlnev);
+    int hossz = strlen(fajlnev);
+    if (fajlnev[hossz-4] != '.' | fajlnev[hossz-3] != 'v' | fajlnev[hossz-2] != 'c' | fajlnev[hossz-1] != 'f') strcat(fajlnev, ".vcf");
 
     FILE* fp;
     fp = fopen(fajlnev, "r");
     if (fp == NULL) {
-        perror("Nem sikerÃ¼lt a fÃ¡jl megnyitÃ¡sa, ok");
+        perror("Nem sikerült a fájl megnyitása, ok");
         while(getchar() != '\n');
         return lista;
     }
@@ -35,14 +37,14 @@ Nevjegyek* vcard_import(Nevjegyek* lista) {
 
     fgets(reader, 501, fp);
     if (strcmp(reader, "BEGIN:VCARD\n") != 0) {
-        printf("A fÃ¡jl nem megfelelÅ‘!");
+        printf("A fájl nem megfelelõ!");
         while(getchar() != '\n');
         return lista;
     }
 
     fgets(reader, 501, fp);
     if (strcmp(reader, "VERSION:4.0\n") != 0) {
-        printf("A fÃ¡jl nem vCard 4.0 verziÃ³jÃº!");
+        printf("A fájl nem vCard 4.0 verziójú!");
         while(getchar() != '\n');
         return lista;
     }
@@ -76,11 +78,18 @@ Nevjegyek* vcard_import(Nevjegyek* lista) {
     }
 
     if (strcmp(uj->nev,"") == 0 | strcmp(uj->telefonszam,"") == 0 | strcmp(uj->email,"") == 0) {
-        printf("Nem sikerÃ¼lt a fÃ¡jlbeolvasÃ¡s\n");
+        printf("Nem sikerült a fájlbeolvasás\n");
         while(getchar() != '\n');
         return lista;
     }
     lista = uj_nevjegy(lista,uj->nev,uj->telefonszam,uj->email);
+    printf("Sikerüt a beolvasás!\n"
+           "A beolvasott adatok:\n"
+           "\tNév: %s\n"
+           "\tTelefonszám: %s\n"
+           "\tEmail cím: %s\n",
+           uj->nev, uj->telefonszam, uj->email);
     free(uj);
+    while(getchar() != '\n');
     return lista;
 }
