@@ -10,6 +10,7 @@
 #include "kereses.h"
 #include "vcard.h"
 
+
 int main(int argc, char **argv) {
 #ifdef _WIN32
     SetConsoleCP(1250);
@@ -85,9 +86,7 @@ int main(int argc, char **argv) {
                     break;
                 case 6:
                     adatok = vcard(adatok);
-#ifdef MENTS
                     fajlba_ment(adatok,fajlnev);
-#endif
                     break;
                 default:
                     printf("Ismeretlen hiba történt");
